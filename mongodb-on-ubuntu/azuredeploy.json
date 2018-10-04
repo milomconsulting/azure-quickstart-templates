@@ -3,16 +3,28 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "newStorageAccountName": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "New Storage Account Name"
+      }
     },
     "dnsNameForPublicIP": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "DNS Name for Public IP"
+      }
     },
     "adminUsername": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "Admin Username"
+      }
     },
     "adminPassword": {
-      "type": "securestring"
+      "type": "securestring",
+      "metadata": {
+        "description": "Admin Password"
+      }
     },
     "imagePublisher": {
       "type": "string",
@@ -30,30 +42,52 @@
     },
     "imageSKU": {
       "type": "string",
-      "defaultValue": "14.04.2-LTS",
+      "defaultValue": "14.04.5-LTS",
       "metadata": {
         "description": "Image SKU"
       }
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_A0"
+      "defaultValue": "Standard_A0",
+      "metadata": {
+        "description": "VM Size"
+      }
     },
     "publicIPAddressName": {
       "type": "string",
-      "defaultValue": "myPublicIP"
+      "defaultValue": "myPublicIP",
+      "metadata": {
+        "description": "Public IP Address Name"
+      }
     },
     "vmName": {
       "type": "string",
-      "defaultValue": "myLinuxVM"
+      "defaultValue": "myLinuxVM",
+      "metadata": {
+        "description": "Vm Name"
+      }
     },
     "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "myVNET"
+      "defaultValue": "myVNET",
+      "metadata": {
+        "description": "Virtual Network Name"
+      }
     },
     "nicName": {
       "type": "string",
-      "defaultValue": "myNIC"
+      "defaultValue": "myNIC",
+      "metadata": {
+        "description": "NIC Name"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
     }
   },
   "variables": {
@@ -73,7 +107,7 @@
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('newStorageAccountName')]",
       "apiVersion": "2015-05-01-preview",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "accountType": "[variables('storageAccountType')]"
       }
@@ -82,7 +116,7 @@
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[parameters('publicIPAddressName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
         "dnsSettings": {
@@ -94,7 +128,7 @@
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('virtualNetworkName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -121,7 +155,7 @@
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[parameters('nicName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]",
         "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
@@ -144,10 +178,10 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2017-03-30",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('vmName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/', parameters('newStorageAccountName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', parameters('nicName'))]"
@@ -169,10 +203,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "osdisk1",
-            "vhd": {
-              "uri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/','osdisk1spec.vhd')]"
-            },
+            "name": "[concat(parameters('vmName'),'_OSDisk')]",
             "caching": "ReadWrite",
             "createOption": "FromImage"
           }
@@ -190,7 +221,7 @@
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmName'),'/installmongo')]",
       "apiVersion": "2015-05-01-preview",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
       ],

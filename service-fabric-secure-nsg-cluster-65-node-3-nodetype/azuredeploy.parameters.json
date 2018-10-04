@@ -9,7 +9,7 @@
       "value": "cluster"
     },
     "adminUsername": {
-      "value": "GEN-USER"
+      "value": "GEN-UNIQUE"
     },
     "adminPassword": {
       "value": "GEN-PASSWORD"
@@ -21,7 +21,7 @@
       "value": "WindowsServer"
     },
     "vmImageSku": {
-      "value": "2012-R2-Datacenter"
+      "value": "2016-Datacenter"
     },
     "vmImageVersion": {
       "value": "latest"
@@ -39,13 +39,13 @@
       "value": "My"
     },
     "certificateThumbprint": {
-      "value": "99912345o458045827c723047234"
+      "value": "GEN-CUSTOM-DOMAIN-SSLCERT-THUMBPRINT"
     },
     "sourceVaultvalue": {
-      "value": "/subscriptions/<Sub ID>/resourceGroups/<Resource group name>/providers/Microsoft.KeyVault/vaults/<vault name>"
+      "value": "GEN-KEYVAULT-RESOURCE-ID"
     },
     "certificateUrlvalue": {
-      "value": "https://<name of the vault>.vault.azure.net:443/secrets/<exact location>"
+      "value": "GEN-KEYVAULT-SSL-SECRET-URI"
     },
     "storageAccountType": {
       "value": "Standard_LRS"
@@ -57,10 +57,10 @@
       "value": 5
     },
     "nt1InstanceCount": {
-      "value": 10
+      "value": 5
     },
     "nt2InstanceCount": {
-      "value": 50
+      "value": 5
     }
   }
 }

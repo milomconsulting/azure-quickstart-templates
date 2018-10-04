@@ -1,7 +1,11 @@
 {
-  "itemDisplayName": "OMS - Azure Resouce Usage Solution",
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "QuickStart",
+  "itemDisplayName": "OMS - Azure Resource Usage Solution",
   "description": "Solution brings billing infortmation about Azure Resources into OMS.  Cost of resources can be displayed in different currency and locale.",
-  "summary": "This template deploys  Azure Resouce Usage  solution with OMS workspace and Automation account.",
+  "summary": "This template deploys  Azure Resource Usage  solution with OMS workspace and Automation account.",
   "githubUsername": "volkanco",
   "dateUpdated": "2017-4-16"
 }
+
+

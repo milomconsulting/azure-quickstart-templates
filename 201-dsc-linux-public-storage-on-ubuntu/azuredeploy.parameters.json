@@ -9,16 +9,16 @@
             "value": "PASSw0rd"
         },
         "newStorageAccountName": {
-            "value": "dscuniqueaccount2"
+            "value": "GEN-UNIQUE"
         },
         "vmName": {
-            "value": "dscvmname2"
+            "value": "GEN-UNIQUE"
         },
         "vmSize": {
             "value": "Standard_D1"
         },
         "ubuntuOSVersion": {
-            "value": "14.04.3-LTS"
+            "value": "14.04.5-LTS"
         },
         "mode": {
             "value": "Install"
